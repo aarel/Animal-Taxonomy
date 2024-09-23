@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Animal Taxonomy</title>
+    <style>
+        /* CSS Styling */
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        #container {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        #taxonomy {
+            width: 40%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border-right: 2px solid #ccc;
+            padding-right: 20px;
+        }
+
+        #frame {
+            width: 60%;
+            padding-left: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        li {
+            margin: 5px 0;
+        }
+
+        .entity {
+            color: #007BFF;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .entity:hover {
+            color: #0056b3;
+        }
+
+        #frame-content {
+            background-color: #fff;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        h3 {
+            color: #555;
+        }
+
+        h4 {
+            margin-top: 15px;
+            color: #666;
+        }
+
+        p {
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <h1>Animal Taxonomy</h1>
+    <div id="container">
+        <div id="taxonomy">
+            <!-- Taxonomy Tree Will Be Injected Here -->
+        </div>
+        <div id="frame">
+            <h2>Animal Details</h2>
+            <div id="frame-content">
+                <p>Select an animal from the taxonomy to view details.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript Functionality
+
+        // Define the taxonomy as a nested object
+        const taxonomy = {
+            "Animal Kingdom": {
+                "Chordates": {
+                    "Mammals": {
+                        "Carnivora": {
+                            "Felidae": {
+                                "Panthera": {
+                                    "Panthera leo": "Lion",
+                                    "Panthera tigris": "Tiger"
+                                },
+                                "Canidae": {
+                                    "Canis": {
+                                        "Canis lupus": "Wolf",
+                                        "Canis familiaris": "Dog"
+                                    }
+                                }
+                            }
+                        },
+                        "Primates": {
+                            "Hominidae": {
+                                "Homo": {
+                                    "Homo sapiens": "Human"
+                                }
+                            }
+                        }
+                    },
+                    "Birds": {
+                        "Passeriformes": {
+                            "Corvidae": {
+                                "Corvus": {
+                                    "Corvus corax": "Common Raven"
+                                }
+                            }
+                        }
+                    }
+                },
+                "Arthropods": {
+                    "Insects": {
+                        "Lepidoptera": {
+                            "Papilionidae": {
+                                "Papilio": {
+                                    "Papilio machaon": "Old World Swallowtail"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        // Define frames for each entity
+        const frames = {
+            "Panthera leo": {
+                "name": "Panthera leo",
+                "common_name": "Lion",
+                "taxonomy": {
+                    "kingdom": "Animalia",
+                    "phylum": "Chordata",
+                    "class": "Mammalia",
+                    "order": "Carnivora",
+                    "family": "Felidae",
+                    "genus": "Panthera",
+                    "species": "Panthera leo"
+                },
+                "attributes": {
+                    "habitat": "Savannas, grasslands, and woodlands",
+                    "diet": "Carnivore",
+                    "lifespan": "10-14 years in the wild",
+                    "conservation_status": "Vulnerable"
+                },
+                "properties": {
+                    "social_structure": "Pride-based",
+                    "gestation_period": "110 days",
+                    "average_weight": "190 kg (male), 130 kg (female)"
+                },
+                "relationships": {
+                    "prey": ["Wildebeest", "Zebra", "Buffalo"],
+                    "predators": ["None (Apex Predator)"],
+                    "similar_species": ["Panthera tigris (Tiger)", "Panthera pardus (Leopard)"]
+                }
+            },
+            "Canis lupus": {
+                "name": "Canis lupus",
+                "common_name": "Wolf",
+                "taxonomy": {
+                    "kingdom": "Animalia",
+                    "phylum": "Chordata",
+                    "class": "Mammalia",
+                    "order": "Carnivora",
+                    "family": "Canidae",
+                    "genus": "Canis",
+                    "species": "Canis lupus"
+                },
+                "attributes": {
+                    "habitat": "Forests, tundras, deserts, and grasslands",
+                    "diet": "Carnivore",
+                    "lifespan": "6-8 years in the wild",
+                    "conservation_status": "Least Concern"
+                },
+                "properties": {
+                    "social_structure": "Pack-based",
+                    "gestation_period": "63 days",
+                    "average_weight": "30-50 kg"
+                },
+                "relationships": {
+                    "prey": ["Deer", "Elk", "Rabbits"],
+                    "predators": ["Humans"],
+                    "similar_species": ["Canis familiaris (Dog)", "Canis latrans (Coyote)"]
+                }
+            },
+            "Homo sapiens": {
+                "name": "Homo sapiens",
+                "common_name": "Human",
+                "taxonomy": {
+                    "kingdom": "Animalia",
+                    "phylum": "Chordata",
+                    "class": "Mammalia",
+                    "order": "Primates",
+                    "family": "Hominidae",
+                    "genus": "Homo",
+                    "species": "Homo sapiens"
+                },
+                "attributes": {
+                    "habitat": "Global",
+                    "diet": "Omnivore",
+                    "lifespan": "70-100 years",
+                    "conservation_status": "Not Applicable"
+                },
+                "properties": {
+                    "social_structure": "Varies across cultures",
+                    "gestation_period": "280 days",
+                    "average_weight": "Varies widely"
+                },
+                "relationships": {
+                    "prey": ["None (Predominantly Top Predator)"],
+                    "predators": ["None (Apex Predator)"],
+                    "similar_species": ["Neanderthals", "Homo erectus"]
+                }
+            },
+            "Corvus corax": {
+                "name": "Corvus corax",
+                "common_name": "Common Raven",
+                "taxonomy": {
+                    "kingdom": "Animalia",
+                    "phylum": "Chordata",
+                    "class": "Aves",
+                    "order": "Passeriformes",
+                    "family": "Corvidae",
+                    "genus": "Corvus",
+                    "species": "Corvus corax"
+                },
+                "attributes": {
+                    "habitat": "Forests, mountains, deserts, and tundras",
+                    "diet": "Omnivore",
+                    "lifespan": "10-15 years in the wild",
+                    "conservation_status": "Least Concern"
+                },
+                "properties": {
+                    "social_structure": "Typically solitary or in pairs",
+                    "gestation_period": "N/A (Birds lay eggs)",
+                    "average_weight": "0.7-2.3 kg"
+                },
+                "relationships": {
+                    "prey": ["Insects", "Small mammals", "Carrion"],
+                    "predators": ["Large Birds of Prey"],
+                    "similar_species": ["Corvus brachyrhynchos (American Crow)", "Corvus corone (Carrion Crow)"]
+                }
+            },
+            "Papilio machaon": {
+                "name": "Papilio machaon",
+                "common_name": "Old World Swallowtail",
+                "taxonomy": {
+                    "kingdom": "Animalia",
+                    "phylum": "Arthropoda",
+                    "class": "Insecta",
+                    "order": "Lepidoptera",
+                    "family": "Papilionidae",
+                    "genus": "Papilio",
+                    "species": "Papilio machaon"
+                },
+                "attributes": {
+                    "habitat": "Meadows, gardens, and open fields",
+                    "diet": "Herbivore (caterpillars feed on plants)",
+                    "lifespan": "Approximately 1 month",
+                    "conservation_status": "Least Concern"
+                },
+                "properties": {
+                    "social_structure": "Solitary",
+                    "gestation_period": "N/A (Egg stage is about 3-5 days)",
+                    "average_weight": "N/A (Butterflies are measured by wingspan)"
+                },
+                "relationships": {
+                    "prey": ["N/A (Herbivore)"],
+                    "predators": ["Birds", "Spiders", "Other Insects"],
+                    "similar_species": ["Papilio polytes (Common Mormon)", "Papilio machaon (Zebra Swallowtail)"]
+                }
+            }
+        };
+
+        // Function to render the taxonomy as nested lists
+        function renderTaxonomy(taxonomy, parentElement) {
+            const ul = document.createElement('ul');
+
+            for (const key in taxonomy) {
+                if (taxonomy.hasOwnProperty(key)) {
+                    const li = document.createElement('li');
+
+                    if (typeof taxonomy[key] === 'object') {
+                        li.textContent = key;
+                        renderTaxonomy(taxonomy[key], li);
+                    } else {
+                        const span = document.createElement('span');
+                        span.classList.add('entity');
+                        span.setAttribute('data-entity', key);
+                        span.textContent = `${taxonomy[key]} (${key})`;
+                        li.appendChild(span);
+                    }
+
+                    ul.appendChild(li);
+                }
+            }
+
+            parentElement.appendChild(ul);
+        }
+
+        // Function to display the frame details
+        function displayFrame(frame) {
+            const frameContent = document.getElementById('frame-content');
+            frameContent.innerHTML = ''; // Clear previous content
+
+            if (!frame) {
+                frameContent.innerHTML = '<p>No data available.</p>';
+                return;
+            }
+
+            // Create HTML elements for each section
+            const nameHeader = document.createElement('h3');
+            nameHeader.textContent = `${frame.common_name} (${frame.name})`;
+            frameContent.appendChild(nameHeader);
+
+            // Taxonomy
+            const taxonomyHeader = document.createElement('h4');
+            taxonomyHeader.textContent = 'Taxonomy';
+            frameContent.appendChild(taxonomyHeader);
+
+            const taxonomyList = document.createElement('ul');
+            for (const [key, value] of Object.entries(frame.taxonomy)) {
+                const li = document.createElement('li');
+                li.innerHTML = `<strong>${capitalizeFirstLetter(key)}:</strong> ${value}`;
+                taxonomyList.appendChild(li);
+            }
+            frameContent.appendChild(taxonomyList);
+
+            // Attributes
+            const attributesHeader = document.createElement('h4');
+            attributesHeader.textContent = 'Attributes';
+            frameContent.appendChild(attributesHeader);
+
+            const attributesList = document.createElement('ul');
+            for (const [key, value] of Object.entries(frame.attributes)) {
+                const li = document.createElement('li');
+                li.innerHTML = `<strong>${formatKey(key)}:</strong> ${value}`;
+                attributesList.appendChild(li);
+            }
+            frameContent.appendChild(attributesList);
+
+            // Properties
+            const propertiesHeader = document.createElement('h4');
+            propertiesHeader.textContent = 'Properties';
+            frameContent.appendChild(propertiesHeader);
+
+            const propertiesList = document.createElement('ul');
+            for (const [key, value] of Object.entries(frame.properties)) {
+                const li = document.createElement('li');
+                li.innerHTML = `<strong>${formatKey(key)}:</strong> ${value}`;
+                propertiesList.appendChild(li);
+            }
+            frameContent.appendChild(propertiesList);
+
+            // Relationships
+            const relationshipsHeader = document.createElement('h4');
+            relationshipsHeader.textContent = 'Relationships';
+            frameContent.appendChild(relationshipsHeader);
+
+            const relationshipsList = document.createElement('ul');
+            for (const [key, value] of Object.entries(frame.relationships)) {
+                const li = document.createElement('li');
+                let content = Array.isArray(value) ? value.join(', ') : value;
+                li.innerHTML = `<strong>${formatKey(key)}:</strong> ${content}`;
+                relationshipsList.appendChild(li);
+            }
+            frameContent.appendChild(relationshipsList);
+        }
+
+        // Helper function to capitalize the first letter
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        // Helper function to format keys
+        function formatKey(key) {
+            return key.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
+        }
+
+        // Initialize the taxonomy tree
+        const taxonomyContainer = document.getElementById('taxonomy');
+        renderTaxonomy(taxonomy, taxonomyContainer);
+
+        // Add event listeners to all entities
+        document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('entity')) {
+                const entity = event.target.getAttribute('data-entity');
+                const frame = frames[entity];
+                displayFrame(frame);
+            }
+        });
+    </script>
+</body>
+</html>
